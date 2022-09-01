@@ -21,7 +21,7 @@ const ExpenseForm = (props) => {
         e.preventDefault();
         const newExpense = {
             title: title,
-            amount: amount,
+            amount: +amount,
             date: new Date(date),
             id: Math.random().toString(),
         };
@@ -31,6 +31,13 @@ const ExpenseForm = (props) => {
         setDate("");
 
         props.onSavedExpense(newExpense);
+    };
+
+    const handleCancelBtn = (e) => {
+        props.onHandleIsNewExpense(false);
+        setTitle("");
+        setAmount("");
+        setDate("");
     };
 
     return (
@@ -66,6 +73,9 @@ const ExpenseForm = (props) => {
                 </div>
             </div>
             <div className="new-expense__actions">
+                <button type="button" onClick={handleCancelBtn}>
+                    Cancel
+                </button>
                 <button type="submit">Add Expense</button>
             </div>
         </form>
