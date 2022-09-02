@@ -5,13 +5,15 @@ import "./NewExpense.css";
 const NewExpense = (props) => {
     const [isNewExpense, setIsNewExpense] = useState(false);
 
-    const handleIsNewExpense = (e) => {
+    const handleIsNewExpense = () => {
         setIsNewExpense(!isNewExpense);
     };
 
     const savedExpenseHandler = (newExpense) => {
         props.onNewExpense(newExpense);
     };
+
+    console.log(isNewExpense);
 
     return (
         <div className="new-expense">

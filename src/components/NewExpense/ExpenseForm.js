@@ -6,6 +6,7 @@ const ExpenseForm = (props) => {
     const [title, setTitle] = useState("");
     const [amount, setAmount] = useState("");
     const [date, setDate] = useState("");
+    const [isError, setIsError] = useState(false);
 
     const handleTitleInput = (e) => {
         setTitle(e.target.value);
@@ -19,22 +20,29 @@ const ExpenseForm = (props) => {
 
     const handleFormSubmit = (e) => {
         e.preventDefault();
-        const newExpense = {
-            title: title,
-            amount: +amount,
-            date: new Date(date),
-            id: Math.random().toString(),
-        };
 
-        setTitle("");
-        setAmount("");
-        setDate("");
+        if (title !== "" && amount !== "" && date !== "") {
+            setIsError(false);
+            const newExpense = {
+                title: title,
+                amount: +amount,
+                date: new Date(date),
+                id: Math.random().toString(),
+            };
 
-        props.onSavedExpense(newExpense);
+            props.onSavedExpense(newExpense);
+            props.onHandleIsNewExpense();
+            setTitle("");
+            setAmount("");
+            setDate("");
+        } else {
+            setIsError(true);
+            alert("Expense can't be blank");
+        }
     };
 
-    const handleCancelBtn = (e) => {
-        props.onHandleIsNewExpense(false);
+    const handleCancelBtn = () => {
+        props.onHandleIsNewExpense();
         setTitle("");
         setAmount("");
         setDate("");
